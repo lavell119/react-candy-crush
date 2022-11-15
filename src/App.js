@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
+//set width of board
 const width = 8
+
+//set random colors for array
 const candyColors = [
   'blue',
   'green',
@@ -11,8 +14,11 @@ const candyColors = [
 ]
 
 const App = () => {
+
+//use useState to set random colors array to state
   const [currentColorArrangement, setCurrentColorArrangement] = useState([])
 
+//create array of random colors
   const createBoard = () => {
     const randomColorArrangement = []
     for (let i = 0; i < width * width; i++) {
@@ -22,12 +28,15 @@ const App = () => {
     setCurrentColorArrangement(randomColorArrangement)
   }
 
-  createBoard()
+//run createBoard() once on initial render
+  useEffect(() => {
+    createBoard()
+  }, [])
 
   console.log(currentColorArrangement)
 
   return (
-    <div className="App">
+    <div>
       
     </div>
   );
