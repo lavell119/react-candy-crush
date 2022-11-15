@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 const width = 8
 const candyColors = [
   'blue',
@@ -9,6 +11,7 @@ const candyColors = [
 ]
 
 const App = () => {
+  const [currentColorArrangement, setCurrentColorArrangement] = useState([])
 
   const createBoard = () => {
     const randomColorArrangement = []
@@ -16,10 +19,12 @@ const App = () => {
       const randomColor = candyColors[Math.floor(Math.random() * candyColors.length)]
       randomColorArrangement.push(randomColor)    
     }
-    console.log(randomColorArrangement)
+    setCurrentColorArrangement(randomColorArrangement)
   }
 
   createBoard()
+
+  console.log(currentColorArrangement)
 
   return (
     <div className="App">
