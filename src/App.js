@@ -14,10 +14,8 @@ const candyColors = [
 ]
 
 const App = () => {
-
 //use useState to set random colors array to state
   const [currentColorArrangement, setCurrentColorArrangement] = useState([])
-
 //create array of random colors
   const createBoard = () => {
     const randomColorArrangement = []
@@ -27,7 +25,6 @@ const App = () => {
     }
     setCurrentColorArrangement(randomColorArrangement)
   }
-
 //run createBoard() once on initial render
   useEffect(() => {
     createBoard()
@@ -36,10 +33,21 @@ const App = () => {
   console.log(currentColorArrangement)
 
   return (
-    <div>
-      
+    <div className="app">
+        <div className="game">
+            {currentColorArrangement.map((candyColor, index) => (
+                <img 
+                    key={index}
+                    style={{backgroundColor: candyColor}}
+                />
+                ))}
+        </div>  
     </div>
-  );
-}
+  
+    )
+  }
 
-export default App;
+
+
+
+export default App
