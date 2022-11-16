@@ -14,8 +14,23 @@ const candyColors = [
 ]
 
 const App = () => {
-//use useState to set random colors array to state
+
+  //use useState to set random colors array to state
   const [currentColorArrangement, setCurrentColorArrangement] = useState([])
+  //check for column of three same color
+  const checkForColumnOfThree = () => {
+    for (let i=0; i < 47; i++) {
+      const columnOfThree = [i, i +width, i + width *2]
+      const decidedColor = currentColorArrangement[i]
+
+      if ( columnOfThree.every(square => currentColorArrangement[square] === decidedColor)) {
+        columnOfThree.forEach(square => currentColorArrangement[square] = '')
+      }
+    }
+  }
+
+  checkForColumnOfThree() 
+
 //create array of random colors
   const createBoard = () => {
     const randomColorArrangement = []
@@ -30,15 +45,22 @@ const App = () => {
     createBoard()
   }, [])
 
+  useEffect(() => {
+    checkForColumnOfThree()
+
+  }, [checkForColumnOfThree])
+
   console.log(currentColorArrangement)
 
   return (
     <div className="app">
         <div className="game">
+          {/* mapped through random colors and rendered as images */}
             {currentColorArrangement.map((candyColor, index) => (
                 <img 
                     key={index}
                     style={{backgroundColor: candyColor}}
+                    alt={candyColor}
                 />
                 ))}
         </div>  
