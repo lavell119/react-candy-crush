@@ -40,6 +40,20 @@ const App = () => {
     }
   }
 
+  const checkForRowOfThree = () => {
+    for (let i=0; i<64; i++) {
+      const rowOfThree = [i, i + 1, i + 2]
+      const decidedColor = currentColorArrangement[i]
+      const nonValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 63, 64]
+
+      if(nonValid.includes(i)) continue
+
+      if (rowOfThree.every(square => currentColorArrangement[square] === decidedColor)) {
+        rowOfThree.forEach(square => currentColorArrangement[square] = '')
+      }
+    }
+  }
+
 //create array of random colors
   const createBoard = () => {
     const randomColorArrangement = []
@@ -58,10 +72,11 @@ const App = () => {
     const timer = setInterval(() => {
       checkForColumnOfFour()
       checkForColumnOfThree()
+      checkForRowOfThree()
       setCurrentColorArrangement([...currentColorArrangement])
     }, 100)
     return () => clearInterval(timer)
-  }, [checkForColumnOfThree, checkForColumnOfFour, currentColorArrangement])
+  }, [ checkForColumnOfThree, checkForColumnOfFour, checkForRowOfThree, currentColorArrangement ])
 
   console.log(currentColorArrangement)
 
