@@ -29,7 +29,6 @@ const App = () => {
     }
   }
 
-  checkForColumnOfThree() 
 
 //create array of random colors
   const createBoard = () => {
@@ -46,9 +45,12 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    checkForColumnOfThree()
-
-  }, [checkForColumnOfThree])
+    const timer = setInterval(() => {
+      checkForColumnOfThree()
+      setCurrentColorArrangement([...currentColorArrangement])
+    }, 100)
+    return () => clearInterval(timer)
+  }, [checkForColumnOfThree, currentColorArrangement])
 
   console.log(currentColorArrangement)
 
