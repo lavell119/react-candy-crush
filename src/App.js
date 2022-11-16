@@ -69,6 +69,14 @@ const App = () => {
     }
   }
 
+  const moveSquareToSquareBelow = () =>{
+    for (let i=0; i<64-width; i++) {
+      if (currentColorArrangement[i +width] === ''){
+        currentColorArrangement[i+width] = currentColorArrangement[i]
+        currentColorArrangement[i] = ''
+      }
+  }
+  }
 
 //create array of random colors
   const createBoard = () => {
@@ -90,10 +98,11 @@ const App = () => {
       checkForColumnOfThree()
       checkForRowOfFour()
       checkForRowOfThree()    
+      moveSquareToSquareBelow()
       setCurrentColorArrangement([...currentColorArrangement])
     }, 100)
     return () => clearInterval(timer)
-  }, [ checkForColumnOfThree, checkForColumnOfFour, checkForRowOfThree, checkForRowOfFour, currentColorArrangement ])
+  }, [ checkForColumnOfThree, checkForColumnOfFour, checkForRowOfThree, checkForRowOfFour, moveSquareToSquareBelow, currentColorArrangement ])
 
   console.log(currentColorArrangement)
 
