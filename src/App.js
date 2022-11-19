@@ -28,7 +28,7 @@ const App = () => {
       }
     }
   }
-
+  //check for column of four
   const checkForColumnOfFour = () => {
     for (let i=0; i < 47; i++) {
       const columnOfFour = [i, i +width, i + width *2, i + width * 3]
@@ -39,7 +39,7 @@ const App = () => {
       }
     }
   }
-
+  //check for row of three
   const checkForRowOfThree = () => {
     for (let i=0; i<64; i++) {
       const rowOfThree = [i, i + 1, i + 2]
@@ -54,7 +54,7 @@ const App = () => {
     }
   }
 
-
+  //check for row of four
   const checkForRowOfFour = () => {
     for (let i=0; i<64; i++) {
       const rowOfFour = [i, i + 1, i + 2, i +3]
@@ -69,7 +69,9 @@ const App = () => {
     }
   }
 
+//move squares to square below
   const moveSquareToSquareBelow = () =>{
+    //renders through all squares, thats why squares drop all the way down
     for (let i=0; i<64-width; i++) {
         const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
         const isFirstRow = firstRow.includes(i)
@@ -78,12 +80,24 @@ const App = () => {
           let randomNumber = Math.floor(Math.random() * candyColors.length)
           currentColorArrangement[i] = candyColors[randomNumber]
         }
-
-      if (currentColorArrangement[i +width] === ''){
-        currentColorArrangement[i+width] = currentColorArrangement[i]
+//drop squares down
+      if (currentColorArrangement[i + width] === ''){
+        currentColorArrangement[i + width] = currentColorArrangement[i]
         currentColorArrangement[i] = ''
       }
   }
+}
+
+const dragStart = () => {
+  console.log('drag start')
+}
+
+const dragDrop = () => {
+  console.log('drag drop')
+}
+
+const dragEnd = () => {
+  console.log('drag end')
 }
 
 //create array of random colors
@@ -108,7 +122,7 @@ const App = () => {
       checkForRowOfThree()    
       moveSquareToSquareBelow()
       setCurrentColorArrangement([...currentColorArrangement])
-    }, 1000)
+    }, 100)
     return () => clearInterval(timer)
   }, [ checkForColumnOfThree, checkForColumnOfFour, checkForRowOfThree, checkForRowOfFour, moveSquareToSquareBelow, currentColorArrangement ])
 
@@ -123,6 +137,14 @@ const App = () => {
                     key={index}
                     style={{backgroundColor: candyColor}}
                     alt={candyColor}
+                    data-id={index}
+                    draggable={true}
+                    onDragStart={dragStart}
+                    onDragOver={(e)=> e.preventDefault()}
+                    onDragEnter={(e)=> e.preventDefault()}
+                    onDragLeave={(e)=> e.preventDefault()}
+                    onDrop={dragDrop}
+                    onDragEnd={dragEnd}
                 />
                 ))}
         </div>  
