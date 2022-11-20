@@ -116,6 +116,15 @@ const dragEnd = () => {
 
   console.log('squareBeingDraggedId', squareBeingDraggedId)
   console.log('squareBeingReplaced', squareBeingReplacedId)
+
+  const validMoves = [
+    squareBeingDraggedId - 1,
+    squareBeingDraggedId - width,
+    squareBeingDraggedId + 1,
+    squareBeingDraggedId - width
+  ]
+
+  const validMove = validMoves.includes(squareBeingReplacedId)
 }
 
 //create array of random colors
