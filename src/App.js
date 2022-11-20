@@ -17,6 +17,11 @@ const App = () => {
 
   //use useState to set random colors array to state
   const [currentColorArrangement, setCurrentColorArrangement] = useState([])
+  //state for square being dragged
+  const [squareBeingDragged, setSquareBeingDragged] = useState(null)
+  //state for square being replaced
+  const [squareBeingReplaced, setSquareBeingReplaced] = useState(null)
+
   //check for column of three same color
   const checkForColumnOfThree = () => {
     for (let i=0; i < 47; i++) {
@@ -88,12 +93,17 @@ const App = () => {
   }
 }
 
-const dragStart = () => {
+const dragStart = (e) => {
+  console.log(e.target)
   console.log('drag start')
+  setSquareBeingDragged(e.target)
+  console.log('dragging'+{squareBeingDragged})
 }
 
-const dragDrop = () => {
+const dragDrop = (e) => {
   console.log('drag drop')
+  setSquareBeingReplaced(e.target)
+  console.log('replacing'+squareBeingReplaced.alt)
 }
 
 const dragEnd = () => {
@@ -126,7 +136,6 @@ const dragEnd = () => {
     return () => clearInterval(timer)
   }, [ checkForColumnOfThree, checkForColumnOfFour, checkForRowOfThree, checkForRowOfFour, moveSquareToSquareBelow, currentColorArrangement ])
 
-  console.log(currentColorArrangement)
 
   return (
     <div className="app">
