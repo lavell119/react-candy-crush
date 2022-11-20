@@ -97,17 +97,25 @@ const dragStart = (e) => {
   console.log(e.target)
   console.log('drag start')
   setSquareBeingDragged(e.target)
-  console.log('dragging'+{squareBeingDragged})
 }
 
 const dragDrop = (e) => {
   console.log('drag drop')
   setSquareBeingReplaced(e.target)
-  console.log('replacing'+squareBeingReplaced.alt)
+  
 }
 
 const dragEnd = () => {
   console.log('drag end')
+
+  const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'))
+  const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'))
+
+  currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor
+  currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor
+
+  console.log('squareBeingDraggedId', squareBeingDraggedId)
+  console.log('squareBeingReplaced', squareBeingReplacedId)
 }
 
 //create array of random colors
